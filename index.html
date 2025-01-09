@@ -4,7 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproducción de Eventos en Vivo</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.15.0/dist/videojs-contrib-hls.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .video-container {
+            width: 640px;
+            height: 480px;
+            border: none;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -12,8 +46,20 @@
     </header>
     <main>
         <div class="video-container">
-            <iframe style="width:640px; height:480px;" allowfullscreen src="http://192.141.4.194/EVENTOS/embed.html"></iframe>
+            <video id="video" class="video-js vjs-default-skin" controls preload="auto">
+                <source src="http://192.141.4.194/EVENTOS/embed.html" type="application/x-mpegURL">
+            </video>
         </div>
     </main>
+    <script>
+        var player = videojs('video');
+        player.ready(function() {
+            player.src({
+                src: 'http://192.141.4.194/EVENTOS/embed.html',
+                type: 'application/x-mpegURL'
+            });
+            player.play();
+        });
+    </script>
 </body>
 </html>
