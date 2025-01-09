@@ -3,11 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página de Videos</title>
+    <title>Reproducción de Videos</title>
     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet">
     <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.15.0/dist/videojs-contrib-hls.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 2rem;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .video {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1rem;
+            padding: 1rem;
+            width: 320px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,30 +60,26 @@
         <div class="video-container">
             <div class="video">
                 <h2>Video 1</h2>
-                <video width="320" height="240" controls>
+                <video id="video1" class="video-js vjs-default-skin" controls preload="auto">
                     <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                    Tu navegador no soporta la reproducción de videos.
                 </video>
             </div>
             <div class="video">
                 <h2>Video 2</h2>
-                <video width="320" height="240" controls>
+                <video id="video2" class="video-js vjs-default-skin" controls preload="auto">
                     <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                    Tu navegador no soporta la reproducción de videos.
                 </video>
             </div>
             <div class="video">
                 <h2>Video 3</h2>
-                <video width="320" height="240" controls>
+                <video id="video3" class="video-js vjs-default-skin" controls preload="auto">
                     <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                    Tu navegador no soporta la reproducción de videos.
                 </video>
             </div>
             <div class="video">
                 <h2>Video 4</h2>
-                <video width="320" height="240" controls>
+                <video id="video4" class="video-js vjs-default-skin" controls preload="auto">
                     <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                    Tu navegador no soporta la reproducción de videos.
                 </video>
             </div>
         </div>
