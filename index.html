@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproducción de Canales en Vivo</title>
-   
+    <title>Reproducción de Eventos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,67 +22,22 @@
         }
         main {
             padding: 2rem;
-        }
-        .video-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center;
         }
-        .video {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 1rem;
-            padding: 1rem;
-            width: 320px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
+        iframe {
+            width: 640px;
+            height: 480px;
+            border: none;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Mis Canales en Vivo</h1>
+        <h1>Eventos en Vivo</h1>
     </header>
     <main>
-        <div class="video-container">
-
-          <iframe style="width:640px; height:480px;" allowfullscreen src="http://192.141.4.194/EVENTOS/embed.html"></iframe>
-            <div class="video">
-                <h2>ESPN DESPORTES</h2>
-               
-                <video id="video1" class="video-js vjs-default-skin" controls preload="auto">
-                    <iframe allowfullscreen src="http://192.141.4.194/EVENTOS/embed.html"></iframe>
-                </video>
-            </div>
-            <div class="video">
-                <h2>Canal 2</h2>
-                <video id="video2" class="video-js vjs-default-skin" controls preload="auto">
-                    <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                </video>
-            </div>
-            <div class="video">
-                <h2>Canal 3</h2>
-                <video id="video3" class="video-js vjs-default-skin" controls preload="auto">
-                    <source src="http://cdn1host.online:2999/xman2b/d5lxdEfHnB/528" type="application/x-mpegURL">
-                </video>
-            </div>
-            <div class="video">
-                <h2>Canal 4</h2>
-                <video id="video4" class="video-js vjs-default-skin" controls preload="auto">
-                    <source src="http://181.114.57.158:4800/4XHQ9TFRLX28Lhcx.m3u8" type="application/x-mpegURL">
-                </video>
-            </div>
-        </div>
+        <iframe allowfullscreen src="http://192.141.4.194/EVENTOS/embed.html"></iframe>
     </main>
 </body>
 </html>
