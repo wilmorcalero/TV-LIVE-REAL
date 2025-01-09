@@ -20,13 +20,13 @@
         if (Hls.isSupported()) {
             var video = document.getElementById('video');
             var hls = new Hls();
-            hls.loadSource('https://cors-anywhere.herokuapp.com/http://192.141.4.194/EVENTOS/embed.html');
+            hls.loadSource('https://api.allorigins.win/raw?url=http://192.141.4.194/EVENTOS/embed.html');
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, function() {
                 video.play();
             });
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'https://cors-anywhere.herokuapp.com/http://192.141.4.194/EVENTOS/embed.html';
+            video.src = 'https://api.allorigins.win/raw?url=http://192.141.4.194/EVENTOS/embed.html';
             video.addEventListener('canplay', function() {
                 video.play();
             });
