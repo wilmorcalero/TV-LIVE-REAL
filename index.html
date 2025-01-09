@@ -1,43 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproducción de Eventos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        main {
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-        iframe {
-            width: 640px;
-            height: 480px;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Eventos en Vivo</h1>
-    </header>
-    <main>
-        <iframe allowfullscreen src="http://192.141.4.194/EVENTOS/embed.html"></iframe>
-    </main>
-</body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD id='dash' type="dynamic" xmlns="urn:mpeg:dash:schema:mpd:2011"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd"
+  profiles="urn:mpeg:dash:profile:isoff-live:2011"
+  minBufferTime="PT15S"
+  suggestedPresentationDelay="PT15S"
+  availabilityStartTime="2024-12-04T19:32:01Z"
+  publishTime="2025-01-09T16:08:34Z"
+  minimumUpdatePeriod="PT4.2S"
+  maxSegmentDuration="PT8S"
+  timeShiftBufferDepth="PT24S">
+    <Period id='1733340721' start="PT0S" >
+        <AdaptationSet id="1" mimeType="video/mp4" contentType="video" maxWidth="1280" maxHeight="720" par="1280:720"  maxFrameRate="60000/1001" segmentAlignment="true" startWithSAP="1" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
+            <Representation id="tracks-v1" width="1280" height="720" sar="1:1" frameRate="60000/1001" bandwidth="2936000" codecs="avc1.4d4028">
+              <SegmentTemplate initialization="tracks-v1/init.m4v" media="tracks-v1/seg-1733340721-$Number$.m4v?t=$Time$" timescale="1000"  startNumber="474126">
+                 <SegmentTimeline>
+                   <S t="3098169337" d="6005" r="3"/>
+                 </SegmentTimeline>
+              </SegmentTemplate>
+            </Representation>
+        </AdaptationSet>
+        <AdaptationSet id="2" mimeType="audio/mp4" contentType="audio" segmentAlignment="true" startWithSAP="1">
+            <Representation id="tracks-a1" audioSamplingRate="24000" bandwidth="96000" codecs="mp4a.40.2">
+              <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+              <SegmentTemplate initialization="tracks-a1/init.m4v" media="tracks-a1/seg-1733340721-$Number$.m4v?t=$Time$" timescale="1000"  startNumber="474126">
+                 <SegmentTimeline>
+                   <S t="3098169337" d="6005" r="3"/>
+                 </SegmentTimeline>
+              </SegmentTemplate>
+            </Representation>
+        </AdaptationSet>
+    </Period>
+    <UTCTiming schemeIdUri="urn:mpeg:dash:utc:direct:2014" value="2025-01-09T16:08:34Z" />
+</MPD>
