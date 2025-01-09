@@ -18,32 +18,12 @@ h1 {
 
 main {
     padding: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .video-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.video {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 1rem;
-    padding: 1rem;
-    width: 320px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-video {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+    width: 640px;
+    height: 480px;
+    border: none;
 }
