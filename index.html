@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Reproducción de Eventos en Vivo</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+
 </head>
 <body>
-    <header>
+    
        <div style="position: relative; width: 100%; height: 0; padding-top: 56.2225%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
  border-radius: 8px; will-change: transform;">
@@ -17,27 +17,8 @@
   </iframe>
 </div>
 <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGb8NzwecE&#x2F;ykKfqfIZckHEMPfCYxgPMQ&#x2F;view?utm_content=DAGb8NzwecE&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Diseño</a> de wilmor Calero
-    </header>
-    <main>
-        <div class="video-container">
-            <video id="video" controls></video>
-        </div>
-    </main>
-    <script>
-        if (Hls.isSupported()) {
-            var video = document.getElementById('video');
-            var hls = new Hls();
-            hls.loadSource('https://api.allorigins.win/raw?url=http://192.141.4.194/EVENTOS/embed.html');
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'https://api.allorigins.win/raw?url=http://192.141.4.194/EVENTOS/embed.html';
-            video.addEventListener('canplay', function() {
-                video.play();
-            });
-        }
-    </script>
+
+  
+        
 </body>
 </html>
