@@ -26,3 +26,18 @@ video {
   width: 100%;
   border-radius: 8px;
 }
+
+.epg-container {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #2e2e2e;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.epg-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #3e3e3e;
+  border-radius: 3px;
+}
