@@ -7,6 +7,32 @@ body {
   background-color: #f0f0f0;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.menu-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-button:hover {
+  background-color: #0056b3;
+}
+
 .video-container {
   width: 80%;
   max-width: 800px;
@@ -39,5 +65,4 @@ video {
   margin-bottom: 10px;
   padding: 5px;
   background-color: #3e3e3e;
-  border-radius: 3px;
-}
+  border-radius: 
