@@ -3,24 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reproductor de Video</title>
+  <title>Reproductor de Video con EPG</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <h1>Reproductor de Canales en Vivo</h1>
+  
   <div class="video-container">
+    <h2>ESPN</h2>
     <video id="video1" controls></video>
+    <div id="epg1"></div>
   </div>
   <div class="video-container">
+    <h2>ESPN Premium</h2>
     <video id="video2" controls></video>
+    <div id="epg2"></div>
   </div>
   <div class="video-container">
+    <h2>TUDN</h2>
     <video id="video3" controls></video>
+    <div id="epg3"></div>
   </div>
   <div class="video-container">
+    <h2>BEIN Sports</h2>
     <video id="video4" controls></video>
+    <div id="epg4"></div>
   </div>
   <div class="video-container">
+    <h2>Starz Encore Action</h2>
     <video id="video5" controls></video>
+    <div id="epg5"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -40,11 +52,36 @@
       }
     }
 
+    function loadEPG(epgId, epgUrl, channelId) {
+      fetch(epgUrl)
+        .then(response => response.text())
+        .then(data => {
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(data, "text/xml");
+          var epgContainer = document.getElementById(epgId);
+          var programs = xmlDoc.querySelectorAll(`programme[channel="${channelId}"]`);
+          programs.forEach(program => {
+            var title = program.querySelector("title").textContent;
+            var start = program.getAttribute("start");
+            var end = program.getAttribute("stop");
+            var programElement = document.createElement("div");
+            programElement.textContent = `${title} (${start} - ${end})`;
+            epgContainer.appendChild(programElement);
+          });
+        });
+    }
+
     loadVideo('video1', 'https://Z29vZC.fubohd.com:443/lb/espn/index.m3u8?token=bf93503f8f3644bd2c41bc80e04e34a50b7fe70a-5c-1736820559-1736784559');
     loadVideo('video2', 'https://vadp.pricesaskeloadsc.com:443/global/espn_premium/index.m3u8?token=7cb7ff96efcecd41681bda8e50dc46c3e53f26cb-90-1736820959-1736784959');
     loadVideo('video3', 'https://bWFrZQ.fubohd.com:443/lb/tudn/index.m3u8?token=0100a3c0e408e7d23eb19f668886271ec460b534-d8-1736837907-1736801907');
     loadVideo('video4', 'https://fl2.moveonjoy.com/BEIN_SPORTS/index.m3u8');
     loadVideo('video5', 'https://fl5.moveonjoy.com/STARZ_ENCORE_ACTION/index.m3u8');
+
+    loadEPG('epg1', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'espn');
+    loadEPG('epg2', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'espn_premium');
+    loadEPG('epg3', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'tudn');
+    loadEPG('epg4', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'bein_sports');
+    loadEPG('epg5', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'starz_encore_action');
   </script>
 </body>
 </html>
