@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <h1>Panel de Administración</h1>
+  <div class="login-container" id="login-container">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="username" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Iniciar Sesión</button>
+  </div>
+  <div class="admin-container" id="admin-container" style="display: none;">
+    <h2>Administrar Videos</h2>
+    <form id="video-form">
+      <input type="text" id="video-title" placeholder="Título del Video">
+      <input type="text" id="video-url" placeholder="URL del Video">
+      <button type="submit">Agregar Video</button>
+    </form>
+    <ul id="video-list"></ul>
+    <h2>Administrar EPG</h2>
+    <form id="epg-form">
+      <input type="text" id="epg-channel" placeholder="ID del Canal">
+      <input type="text" id="epg-url" placeholder="URL del EPG">
+      <button type="submit">Agregar EPG</button>
+    </form>
+    <ul id="epg-list"></ul>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>
