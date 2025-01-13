@@ -15,6 +15,11 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+  transform: scale(1.05);
 }
 
 video {
