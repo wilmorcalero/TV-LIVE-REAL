@@ -7,24 +7,44 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="video-container">
-    <video id="video" controls></video>
+  <div class="video-container">
+    <video id="video1" controls></video>
+  </div>
+  <div class="video-container">
+    <video id="video2" controls></video>
+  </div>
+  <div class="video-container">
+    <video id="video3" controls></video>
+  </div>
+  <div class="video-container">
+    <video id="video4" controls></video>
+  </div>
+  <div class="video-container">
+    <video id="video5" controls></video>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    var video = document.getElementById('video');
-    if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.loadSource('https://Z29vZC.fubohd.com:443/lb/espn/index.m3u8?token=bf93503f8f3644bd2c41bc80e04e34a50b7fe70a-5c-1736820559-1736784559');
-      hls.attachMedia(video);
-      video.play();
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = 'https://Z29vZC.fubohd.com:443/lb/espn/index.m3u8?token=bf93503f8f3644bd2c41bc80e04e34a50b7fe70a-5c-1736820559-1736784559';
-      video.addEventListener('loadedmetadata', function() {
+    function loadVideo(videoId, url) {
+      var video = document.getElementById(videoId);
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
         video.play();
-      });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.addEventListener('loadedmetadata', function() {
+          video.play();
+        });
+      }
     }
+
+    loadVideo('video1', 'https://Z29vZC.fubohd.com:443/lb/espn/index.m3u8?token=bf93503f8f3644bd2c41bc80e04e34a50b7fe70a-5c-1736820559-1736784559');
+    loadVideo('video2', 'https://example.com/video2.m3u8');
+    loadVideo('video3', 'https://example.com/video3.m3u8');
+    loadVideo('video4', 'https://example.com/video4.m3u8');
+    loadVideo('video5', 'https://example.com/video5.m3u8');
   </script>
 </body>
 </html>
