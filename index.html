@@ -72,7 +72,10 @@
     function selectVideo(videoId, epgId) {
       var videos = document.querySelectorAll('video');
       var epgs = document.querySelectorAll('.epg-container');
-      videos.forEach(video => video.style.display = 'none');
+      videos.forEach(video => {
+        video.style.display = 'none';
+        video.pause();
+      });
       epgs.forEach(epg => epg.style.display = 'none');
       document.getElementById(videoId).style.display = 'block';
       document.getElementById('epg-toggle').style.display = 'block';
@@ -101,7 +104,7 @@
     loadEPG('epg2', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'espn_premium');
     loadEPG('epg3', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'tudn');
     loadEPG('epg4', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'bein_sports');
-    loadEPG('epg5', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'Starz.Encore.Action.-.Eastern.us');
+    loadEPG('epg5', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'starz_encore_action');
   </script>
 </body>
 </html>
