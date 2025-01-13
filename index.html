@@ -9,102 +9,15 @@
 <body>
   <h1>Reproductor de Canales en Vivo</h1>
   
-  <div class="menu-container">
-    <button class="menu-button" onclick="selectVideo('video1', 'epg1')">ESPN</button>
-    <button class="menu-button" onclick="selectVideo('video2', 'epg2')">ESPN Premium</button>
-    <button class="menu-button" onclick="selectVideo('video3', 'epg3')">TUDN</button>
-    <button class="menu-button" onclick="selectVideo('video4', 'epg4')">BEIN Sports</button>
-    <button class="menu-button" onclick="selectVideo('video5', 'epg5')">Starz Encore Action</button>
-  </div>
+  <div class="menu-container" id="menu-container"></div>
 
   <div class="video-container">
-    <video id="video1" controls style="display: none;"></video>
-    <video id="video2" controls style="display: none;"></video>
-    <video id="video3" controls style="display: none;"></video>
-    <video id="video4" controls style="display: none;"></video>
-    <video id="video5" controls style="display: none;"></video>
+    <video id="video-player" controls style="display: none;"></video>
     <button id="epg-toggle" onclick="toggleEPG()" style="display: none;">Mostrar EPG</button>
-    <div id="epg1" class="epg-container" style="display: none;"></div>
-    <div id="epg2" class="epg-container" style="display: none;"></div>
-    <div id="epg3" class="epg-container" style="display: none;"></div>
-    <div id="epg4" class="epg-container" style="display: none;"></div>
-    <div id="epg5" class="epg-container" style="display: none;"></div>
+    <div id="epg-container" class="epg-container" style="display: none;"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script>
-    function loadVideo(videoId, url) {
-      var video = document.getElementById(videoId);
-      if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = url;
-      }
-    }
-
-    function formatDateTime(dateTime) {
-      var date = new Date(dateTime.slice(0, 4) + '-' + dateTime.slice(4, 6) + '-' + dateTime.slice(6, 8) + 'T' + dateTime.slice(8, 10) + ':' + dateTime.slice(10, 12) + ':' + dateTime.slice(12, 14));
-      return date.toLocaleString();
-    }
-
-    function loadEPG(epgId, epgUrl, channelId) {
-      fetch(epgUrl)
-        .then(response => response.text())
-        .then(data => {
-          var parser = new DOMParser();
-          var xmlDoc = parser.parseFromString(data, "text/xml");
-          var epgContainer = document.getElementById(epgId);
-          var programs = xmlDoc.querySelectorAll(`programme[channel="${channelId}"]`);
-          programs.forEach(program => {
-            var title = program.querySelector("title").textContent;
-            var start = formatDateTime(program.getAttribute("start"));
-            var end = formatDateTime(program.getAttribute("stop"));
-            var programElement = document.createElement("div");
-            programElement.className = "epg-item";
-            programElement.innerHTML = `<strong>${title}</strong> <br> ${start} - ${end}`;
-            epgContainer.appendChild(programElement);
-          });
-        });
-    }
-
-    function selectVideo(videoId, epgId) {
-      var videos = document.querySelectorAll('video');
-      var epgs = document.querySelectorAll('.epg-container');
-      videos.forEach(video => {
-        video.style.display = 'none';
-        video.pause();
-      });
-      epgs.forEach(epg => epg.style.display = 'none');
-      document.getElementById(videoId).style.display = 'block';
-      document.getElementById('epg-toggle').style.display = 'block';
-      document.getElementById('epg-toggle').setAttribute('data-epg', epgId);
-    }
-
-    function toggleEPG() {
-      var epgId = document.getElementById('epg-toggle').getAttribute('data-epg');
-      var epgContainer = document.getElementById(epgId);
-      if (epgContainer.style.display === 'none') {
-        epgContainer.style.display = 'block';
-        document.getElementById('epg-toggle').textContent = 'Ocultar EPG';
-      } else {
-        epgContainer.style.display = 'none';
-        document.getElementById('epg-toggle').textContent = 'Mostrar EPG';
-      }
-    }
-
-    loadVideo('video1', 'https://Z29vZC.fubohd.com:443/lb/espn/index.m3u8?token=bf93503f8f3644bd2c41bc80e04e34a50b7fe70a-5c-1736820559-1736784559');
-    loadVideo('video2', 'https://vadp.pricesaskeloadsc.com:443/global/espn_premium/index.m3u8?token=7cb7ff96efcecd41681bda8e50dc46c3e53f26cb-90-1736820959-1736784959');
-    loadVideo('video3', 'https://bWFrZQ.fubohd.com:443/lb/tudn/index.m3u8?token=0100a3c0e408e7d23eb19f668886271ec460b534-d8-1736837907-1736801907');
-    loadVideo('video4', 'https://fl2.moveonjoy.com/BEIN_SPORTS/index.m3u8');
-    loadVideo('video5', 'https://fl5.moveonjoy.com/STARZ_ENCORE_ACTION/index.m3u8');
-
-    loadEPG('epg1', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'espn');
-    loadEPG('epg2', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'espn_premium');
-    loadEPG('epg3', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'tudn');
-    loadEPG('epg4', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'bein_sports');
-    loadEPG('epg5', 'https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml', 'starz_encore_action');
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
