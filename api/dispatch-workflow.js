@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}` // Asegúrate de configurar tu token en las variables de entorno de Vercel
+        'Authorization': `Bearer ${process.env.MY_SECRET_TOKEN}` // Asegúrate de configurar tu token en las variables de entorno de Vercel
       },
       body: JSON.stringify({
         ref: 'main',
