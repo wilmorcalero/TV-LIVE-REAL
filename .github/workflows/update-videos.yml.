@@ -1,0 +1,39 @@
+name: Update videos.json
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'Title of the video'
+        required: true
+        default: ''
+      url:
+        description: 'URL of the video'
+        required: true
+        default: ''
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update videos.json
+      run: |
+        echo "Updating videos.json"
+        videos=$(cat videos.json)
+        new_video="{\"title\": \"${{ github.event.inputs.title }}\", \"url\": \"${{ github.event.inputs.url }}\"}"
+        updated_videos=$(echo $videos | jq ". += [$new_video]")
+        echo $updated_videos | jq '.' > videos.json
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add videos.json
+        git commit -m "Add new video: ${{ github.event.inputs.title }}"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
