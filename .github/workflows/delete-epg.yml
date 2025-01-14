@@ -3,8 +3,8 @@ name: Delete EPG from epgs.json
 on:
   workflow_dispatch:
     inputs:
-      url:
-        description: 'URL del EPG a eliminar'
+      channel:
+        description: 'ID del Canal del EPG a eliminar'
         required: true
         default: ''
 
@@ -20,7 +20,7 @@ jobs:
       run: |
         echo "Deleting EPG from epgs.json"
         epgs=$(cat epgs.json)
-        updated_epgs=$(echo $epgs | jq "del(.[] | select(.url == \"${{ github.event.inputs.url }}\"))")
+        updated_epgs=$(echo $epgs | jq "del(.epgs[] | select(.channel == \"${{ github.event.inputs.channel }}\"))")
         echo $updated_epgs | jq '.' > epgs.json
 
     - name: Commit and push changes
@@ -28,7 +28,7 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add epgs.json
-        git commit -m "Delete EPG: ${{ github.event.inputs.url }}"
+        git commit -m "Delete EPG: ${{ github.event.inputs.channel }}"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
