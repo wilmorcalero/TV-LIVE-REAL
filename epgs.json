@@ -1,3 +1,8 @@
 {
-  "epgs": []
+  "epgs": [
+    {
+      "channel": "CNN.us",
+      "url": "https://raw.githubusercontent.com/dtankdempse/moveonjoy-m3u/refs/heads/main/epg.xml"
+    }
+  ]
 }
