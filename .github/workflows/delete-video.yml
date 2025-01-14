@@ -20,7 +20,7 @@ jobs:
       run: |
         echo "Deleting video from videos.json"
         videos=$(cat videos.json)
-        updated_videos=$(echo $videos | jq "del(.[] | select(.url == \"${{ github.event.inputs.url }}\"))")
+        updated_videos=$(echo $videos | jq '.videos |= map(select(.url != "'${{ github.event.inputs.url }}'"))')
         echo $updated_videos | jq '.' > videos.json
 
     - name: Commit and push changes
