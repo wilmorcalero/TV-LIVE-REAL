@@ -46,15 +46,56 @@ function removeVideo(button) {
 }
 
 function saveVideo(title, url) {
-  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
+  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/update-videos.yml/dispatches', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ref: 'main',
+      inputs: {
+        title: title,
+        url: url
+      }
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Video workflow dispatched successfully');
+    } else {
+      console.error('Error dispatching video workflow:', response.statusText);
+    }
+  })
+  .catch(error => console.error('Error:', error));
 }
 
 function deleteVideo(url) {
-  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
+  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/delete-video.yml/dispatches', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ref: 'main',
+      inputs: {
+        url: url
+      }
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Video delete workflow dispatched successfully');
+    } else {
+      console.error('Error dispatching delete video workflow:', response.statusText);
+    }
+  })
+  .catch(error => console.error('Error:', error));
 }
 
 function loadVideos() {
-  fetch('https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/videos.json')
+  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/videos.json')
     .then(response => response.json())
     .then(videos => {
       const videoList = document.getElementById('video-list');
@@ -78,15 +119,56 @@ function removeEPG(button) {
 }
 
 function saveEPG(channel, url) {
-  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
+  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/update-epgs.yml/dispatches', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ref: 'main',
+      inputs: {
+        channel: channel,
+        url: url
+      }
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('EPG workflow dispatched successfully');
+    } else {
+      console.error('Error dispatching EPG workflow:', response.statusText);
+    }
+  })
+  .catch(error => console.error('Error:', error));
 }
 
 function deleteEPG(url) {
-  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
+  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/delete-epg.yml/dispatches', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ref: 'main',
+      inputs: {
+        url: url
+      }
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('EPG delete workflow dispatched successfully');
+    } else {
+      console.error('Error dispatching delete EPG workflow:', response.statusText);
+    }
+  })
+  .catch(error => console.error('Error:', error));
 }
 
 function loadEPGs() {
-  fetch('https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/epgs.json')
+  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/epgs.json')
     .then(response => response.json())
     .then(epgs => {
       const epgList = document.getElementById('epg-list');
