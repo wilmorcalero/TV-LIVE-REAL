@@ -1,0 +1,34 @@
+name: Delete video from videos.json
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL del video a eliminar'
+        required: true
+        default: ''
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Delete video from videos.json
+      run: |
+        echo "Deleting video from videos.json"
+        videos=$(cat videos.json)
+        updated_videos=$(echo $videos | jq "del(.[] | select(.url == \"${{ github.event.inputs.url }}\"))")
+        echo $updated_videos | jq '.' > videos.json
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add videos.json
+        git commit -m "Delete video: ${{ github.event.inputs.url }}"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
