@@ -51,25 +51,22 @@ function removeVideo(button) {
 
 function saveVideo(title, url) {
   console.log('Saving video:', title, url);
-  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/update-videos.yml/dispatches', {
+  fetch('/api/dispatch-workflow', {
     method: 'POST',
     headers: {
-      'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ref: 'main',
-      inputs: {
-        title: title,
-        url: url
-      }
+      title: title,
+      url: url
     })
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('Video workflow dispatched successfully');
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      console.log(data.message);
     } else {
-      console.error('Error dispatching video workflow:', response.statusText);
+      console.error('Error:', data.error);
     }
   })
   .catch(error => console.error('Error:', error));
@@ -77,24 +74,21 @@ function saveVideo(title, url) {
 
 function deleteVideo(url) {
   console.log('Deleting video:', url);
-  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/delete-video.yml/dispatches', {
+  fetch('/api/dispatch-workflow', {
     method: 'POST',
     headers: {
-      'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ref: 'main',
-      inputs: {
-        url: url
-      }
+      url: url
     })
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('Video delete workflow dispatched successfully');
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      console.log(data.message);
     } else {
-      console.error('Error dispatching delete video workflow:', response.statusText);
+      console.error('Error:', data.error);
     }
   })
   .catch(error => console.error('Error:', error));
@@ -130,25 +124,22 @@ function removeEPG(button) {
 
 function saveEPG(channel, url) {
   console.log('Saving EPG:', channel, url);
-  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/update-epgs.yml/dispatches', {
+  fetch('/api/dispatch-workflow', {
     method: 'POST',
     headers: {
-      'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ref: 'main',
-      inputs: {
-        channel: channel,
-        url: url
-      }
+      channel: channel,
+      url: url
     })
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('EPG workflow dispatched successfully');
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      console.log(data.message);
     } else {
-      console.error('Error dispatching EPG workflow:', response.statusText);
+      console.error('Error:', data.error);
     }
   })
   .catch(error => console.error('Error:', error));
@@ -156,24 +147,21 @@ function saveEPG(channel, url) {
 
 function deleteEPG(channel) {
   console.log('Deleting EPG:', channel);
-  fetch('https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/delete-epg.yml/dispatches', {
+  fetch('/api/dispatch-workflow', {
     method: 'POST',
     headers: {
-      'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ref: 'main',
-      inputs: {
-        channel: channel
-      }
+      channel: channel
     })
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('EPG delete workflow dispatched successfully');
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      console.log(data.message);
     } else {
-      console.error('Error dispatching delete EPG workflow:', response.statusText);
+      console.error('Error:', data.error);
     }
   })
   .catch(error => console.error('Error:', error));
