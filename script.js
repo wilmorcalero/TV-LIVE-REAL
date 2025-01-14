@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadVideos() {
   const videos = JSON.parse(localStorage.getItem('videos')) || [];
   const menuContainer = document.getElementById('menu-container');
+  menuContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los botones
   videos.forEach(video => {
     const button = document.createElement('button');
     button.className = 'menu-button';
