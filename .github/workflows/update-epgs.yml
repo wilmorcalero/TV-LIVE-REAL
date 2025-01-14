@@ -1,0 +1,39 @@
+name: Update epgs.json
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: 'ID del Canal'
+        required: true
+        default: ''
+      url:
+        description: 'URL del EPG'
+        required: true
+        default: ''
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update epgs.json
+      run: |
+        echo "Updating epgs.json"
+        epgs=$(cat epgs.json)
+        new_epg="{\"channel\": \"${{ github.event.inputs.channel }}\", \"url\": \"${{ github.event.inputs.url }}\"}"
+        updated_epgs=$(echo $epgs | jq ". += [$new_epg]")
+        echo $updated_epgs | jq '.' > epgs.json
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add epgs.json
+        git commit -m "Add new EPG: ${{ github.event.inputs.channel }}"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
