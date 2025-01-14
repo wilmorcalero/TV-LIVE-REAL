@@ -1,51 +1,21 @@
-const fetch = require('node-fetch');
-
-module.exports = async (req, res) => {
-  if (req.method === 'POST') {
-    const { title, url, channel } = req.body;
-    let workflowUrl = 'https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/';
-    let inputs = {};
-
-    if (title && url) {
-      workflowUrl += 'update-videos.yml/dispatches';
-      inputs = { title, url };
-    } else if (channel && url) {
-      workflowUrl += 'update-epgs.yml/dispatches';
-      inputs = { channel, url };
-    } else if (url) {
-      workflowUrl += 'delete-video.yml/dispatches';
-      inputs = { url };
-    } else if (channel) {
-      workflowUrl += 'delete-epg.yml/dispatches';
-      inputs = { channel };
+// api/dispatch-workflow.js
+export default function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
     }
 
-    try {
-      const response = await fetch(workflowUrl, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.MY_SECRET_TOKEN}` // Asegúrate de configurar tu token en las variables de entorno de Vercel
-        },
-        body: JSON.stringify({
-          ref: 'main',
-          inputs: inputs
-        })
-      });
+    if (req.method === 'POST') {
+        const { title, url, channel } = req.body;
+        console.log('Datos recibidos:', { title, url, channel });
 
-      if (response.ok) {
-        res.status(200).json({ message: 'Workflow dispatched successfully' });
-      } else {
-        const errorText = await response.text();
-        console.error('Error from GitHub API:', errorText); // Agregar registro de error
-        res.status(response.status).json({ error: errorText });
-      }
-    } catch (error) {
-      console.error('Error in API handler:', error); // Agregar registro de error
-      res.status(500).json({ error: error.message });
+        // Aquí puedes agregar la lógica para despachar el workflow
+        res.status(200).json({ message: 'Workflow despachado correctamente' });
+    } else {
+        res.status(405).json({ error: 'Método no permitido' });
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-};
+}
