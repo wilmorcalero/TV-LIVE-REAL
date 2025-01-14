@@ -25,7 +25,7 @@ jobs:
         echo "Updating videos.json"
         videos=$(cat videos.json)
         new_video="{\"title\": \"${{ github.event.inputs.title }}\", \"url\": \"${{ github.event.inputs.url }}\"}"
-        updated_videos=$(echo $videos | jq ". += [$new_video]")
+        updated_videos=$(echo $videos | jq ".videos += [$new_video]")
         echo $updated_videos | jq '.' > videos.json
 
     - name: Commit and push changes
