@@ -20,23 +20,28 @@ module.exports = async (req, res) => {
       inputs = { channel };
     }
 
-    const response = await fetch(workflowUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.MY_SECRET_TOKEN}` // Asegúrate de configurar tu token en las variables de entorno de Vercel
-      },
-      body: JSON.stringify({
-        ref: 'main',
-        inputs: inputs
-      })
-    });
+    try {
+      const response = await fetch(workflowUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.MY_SECRET_TOKEN}` // Asegúrate de configurar tu token en las variables de entorno de Vercel
+        },
+        body: JSON.stringify({
+          ref: 'main',
+          inputs: inputs
+        })
+      });
 
-    if (response.ok) {
-      res.status(200).json({ message: 'Workflow dispatched successfully' });
-    } else {
-      res.status(response.status).json({ error: 'Error dispatching workflow' });
+      if (response.ok) {
+        res.status(200).json({ message: 'Workflow dispatched successfully' });
+      } else {
+        const errorText = await response.text();
+        res.status(response.status).json({ error: errorText });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   } else {
     res.status(405).json({ error: 'Method not allowed' });
