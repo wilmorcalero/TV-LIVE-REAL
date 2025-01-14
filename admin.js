@@ -104,10 +104,10 @@ function loadVideos() {
   console.log('Loading videos');
   fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/videos.json')
     .then(response => response.json())
-    .then(videos => {
+    .then(data => {
       const videoList = document.getElementById('video-list');
       videoList.innerHTML = ''; // Limpiar la lista antes de agregar los videos
-      videos.videos.forEach(video => addVideo(video.title, video.url));
+      data.videos.forEach(video => addVideo(video.title, video.url));
     })
     .catch(error => console.error('Error cargando videos:', error));
 }
@@ -183,10 +183,10 @@ function loadEPGs() {
   console.log('Loading EPGs');
   fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/epgs.json')
     .then(response => response.json())
-    .then(epgs => {
+    .then(data => {
       const epgList = document.getElementById('epg-list');
       epgList.innerHTML = ''; // Limpiar la lista antes de agregar los EPGs
-      epgs.epgs.forEach(epg => addEPG(epg.channel, epg.url));
+      data.epgs.forEach(epg => addEPG(epg.channel, epg.url));
     })
     .catch(error => console.error('Error cargando EPGs:', error));
 }
