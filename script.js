@@ -6,25 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadVideos() {
   fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/videos.json')
     .then(response => response.json())
-    .then(videos => {
+    .then(data => {
       const menuContainer = document.getElementById('menu-container');
       menuContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los botones
-      videos.forEach(video => {
+      data.videos.forEach(video => {
         const button = document.createElement('button');
         button.className = 'menu-button';
         button.textContent = video.title;
         button.onclick = () => selectVideo(video.url, video.title);
         menuContainer.appendChild(button);
       });
-    });
-}
-
-function loadEPGs() {
-  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/epgs.json')
-    .then(response => response.json())
-    .then(epgs => {
-      epgs.forEach(epg => loadEPG(epg.channel, epg.url));
-    });
+    })
+    .catch(error => console.error('Error cargando videos:', error));
 }
 
 function selectVideo(url, title) {
@@ -68,6 +61,15 @@ function toggleEPG() {
   }
 }
 
+function loadEPGs() {
+  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/epgs.json')
+    .then(response => response.json())
+    .then(data => {
+      data.epgs.forEach(epg => loadEPG(epg.channel, epg.url));
+    })
+    .catch(error => console.error('Error cargando EPGs:', error));
+}
+
 function loadEPG(channel, url) {
   fetch(url)
     .then(response => response.text())
@@ -85,7 +87,8 @@ function loadEPG(channel, url) {
         programElement.innerHTML = `<strong>${title}</strong> <br> ${start} - ${end}`;
         epgContainer.appendChild(programElement);
       });
-    });
+    })
+    .catch(error => console.error('Error cargando EPG:', error));
 }
 
 function formatDateTime(dateTime) {
