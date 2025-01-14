@@ -25,7 +25,7 @@ jobs:
         echo "Updating epgs.json"
         epgs=$(cat epgs.json)
         new_epg="{\"channel\": \"${{ github.event.inputs.channel }}\", \"url\": \"${{ github.event.inputs.url }}\"}"
-        updated_epgs=$(echo $epgs | jq ". += [$new_epg]")
+        updated_epgs=$(echo $epgs | jq ".epgs += [$new_epg]")
         echo $updated_epgs | jq '.' > epgs.json
 
     - name: Commit and push changes
