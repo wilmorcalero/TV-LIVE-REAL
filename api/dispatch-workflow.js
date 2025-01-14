@@ -38,9 +38,11 @@ module.exports = async (req, res) => {
         res.status(200).json({ message: 'Workflow dispatched successfully' });
       } else {
         const errorText = await response.text();
+        console.error('Error from GitHub API:', errorText); // Agregar registro de error
         res.status(response.status).json({ error: errorText });
       }
     } catch (error) {
+      console.error('Error in API handler:', error); // Agregar registro de error
       res.status(500).json({ error: error.message });
     }
   } else {
