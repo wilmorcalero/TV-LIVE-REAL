@@ -22,9 +22,20 @@ function loadEPGs() {
 
 function selectVideo(url, title) {
   const videoPlayer = document.getElementById('video-player');
-  videoPlayer.src = url;
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(videoPlayer);
+    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+      videoPlayer.play();
+    });
+  } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+    videoPlayer.src = url;
+    videoPlayer.addEventListener('loadedmetadata', function() {
+      videoPlayer.play();
+    });
+  }
   videoPlayer.style.display = 'block';
-  videoPlayer.play();
   document.getElementById('epg-toggle').style.display = 'block';
   document.getElementById('epg-toggle').setAttribute('data-title', title);
 }
