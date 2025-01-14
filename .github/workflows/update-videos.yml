@@ -25,3 +25,15 @@ jobs:
         echo "Updating videos.json"
         videos=$(cat videos.json)
         new_video="{\"title\": \"${{ github.event.inputs.title }}\", \"url\": \"${{ github.event.inputs.url }}\"}"
+        updated_videos=$(echo $videos | jq ".videos += [$new_video]")
+        echo $updated_videos | jq '.' > videos.json
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add videos.json
+        git commit -m "Add new video: ${{ github.event.inputs.title }}"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
