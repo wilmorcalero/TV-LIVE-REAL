@@ -22,6 +22,7 @@ function loadEPGs() {
 
 function selectVideo(url, title) {
   const videoPlayer = document.getElementById('video-player');
+  pauseAllVideos();
   if (Hls.isSupported()) {
     const hls = new Hls();
     hls.loadSource(url);
@@ -38,6 +39,14 @@ function selectVideo(url, title) {
   videoPlayer.style.display = 'block';
   document.getElementById('epg-toggle').style.display = 'block';
   document.getElementById('epg-toggle').setAttribute('data-title', title);
+}
+
+function pauseAllVideos() {
+  const videos = document.querySelectorAll('video');
+  videos.forEach(video => {
+    video.pause();
+    video.style.display = 'none';
+  });
 }
 
 function toggleEPG() {
