@@ -69,7 +69,10 @@ function saveVideo(title, url) {
       console.error('Error:', data.error);
     }
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`); // Mostrar alerta con el mensaje de error
+  });
 }
 
 function deleteVideo(url) {
@@ -91,7 +94,10 @@ function deleteVideo(url) {
       console.error('Error:', data.error);
     }
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`); // Mostrar alerta con el mensaje de error
+  });
 }
 
 function loadVideos() {
@@ -142,7 +148,10 @@ function saveEPG(channel, url) {
       console.error('Error:', data.error);
     }
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`); // Mostrar alerta con el mensaje de error
+  });
 }
 
 function deleteEPG(channel) {
@@ -164,7 +173,10 @@ function deleteEPG(channel) {
       console.error('Error:', data.error);
     }
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`); // Mostrar alerta con el mensaje de error
+  });
 }
 
 function loadEPGs() {
