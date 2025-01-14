@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   loadVideos();
   loadEPGs();
-});
+}); 
 
 function loadVideos() {
   const videos = JSON.parse(localStorage.getItem('videos')) || [];
