@@ -57,11 +57,18 @@ function saveVideo(title, url) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      action: 'add',
+      type: 'video',
       title: title,
       url: url
     })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.message) {
       console.log(data.message);
@@ -83,10 +90,17 @@ function deleteVideo(url) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      action: 'delete',
+      type: 'video',
       url: url
     })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.message) {
       console.log(data.message);
@@ -136,11 +150,18 @@ function saveEPG(channel, url) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      action: 'add',
+      type: 'epg',
       channel: channel,
       url: url
     })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.message) {
       console.log(data.message);
@@ -162,10 +183,17 @@ function deleteEPG(channel) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      action: 'delete',
+      type: 'epg',
       channel: channel
     })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.message) {
       console.log(data.message);
