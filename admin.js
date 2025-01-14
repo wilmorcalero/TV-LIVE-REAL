@@ -46,20 +46,21 @@ function removeVideo(button) {
 }
 
 function saveVideo(title, url) {
-  const videos = JSON.parse(localStorage.getItem('videos')) || [];
-  videos.push({ title, url });
-  localStorage.setItem('videos', JSON.stringify(videos));
+  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
 }
 
 function deleteVideo(url) {
-  let videos = JSON.parse(localStorage.getItem('videos')) || [];
-  videos = videos.filter(video => video.url !== url);
-  localStorage.setItem('videos', JSON.stringify(videos));
+  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
 }
 
 function loadVideos() {
-  const videos = JSON.parse(localStorage.getItem('videos')) || [];
-  videos.forEach(video => addVideo(video.title, video.url));
+  fetch('https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/videos.json')
+    .then(response => response.json())
+    .then(videos => {
+      const videoList = document.getElementById('video-list');
+      videoList.innerHTML = ''; // Limpiar la lista antes de agregar los videos
+      videos.forEach(video => addVideo(video.title, video.url));
+    });
 }
 
 function addEPG(channel, url) {
@@ -77,18 +78,19 @@ function removeEPG(button) {
 }
 
 function saveEPG(channel, url) {
-  const epgs = JSON.parse(localStorage.getItem('epgs')) || [];
-  epgs.push({ channel, url });
-  localStorage.setItem('epgs', JSON.stringify(epgs));
+  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
 }
 
 function deleteEPG(url) {
-  let epgs = JSON.parse(localStorage.getItem('epgs')) || [];
-  epgs = epgs.filter(epg => epg.url !== url);
-  localStorage.setItem('epgs', JSON.stringify(epgs));
+  // Aquí puedes hacer una solicitud a tu servidor backend o ejecutar el workflow de GitHub Actions
 }
 
 function loadEPGs() {
-  const epgs = JSON.parse(localStorage.getItem('epgs')) || [];
-  epgs.forEach(epg => addEPG(epg.channel, epg.url));
+  fetch('https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/epgs.json')
+    .then(response => response.json())
+    .then(epgs => {
+      const epgList = document.getElementById('epg-list');
+      epgList.innerHTML = ''; // Limpiar la lista antes de agregar los EPGs
+      epgs.forEach(epg => addEPG(epg.channel, epg.url));
+    });
 }
