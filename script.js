@@ -4,21 +4,27 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadVideos() {
-  const videos = JSON.parse(localStorage.getItem('videos')) || [];
-  const menuContainer = document.getElementById('menu-container');
-  menuContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los botones
-  videos.forEach(video => {
-    const button = document.createElement('button');
-    button.className = 'menu-button';
-    button.textContent = video.title;
-    button.onclick = () => selectVideo(video.url, video.title);
-    menuContainer.appendChild(button);
-  });
+  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/videos.json')
+    .then(response => response.json())
+    .then(videos => {
+      const menuContainer = document.getElementById('menu-container');
+      menuContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los botones
+      videos.forEach(video => {
+        const button = document.createElement('button');
+        button.className = 'menu-button';
+        button.textContent = video.title;
+        button.onclick = () => selectVideo(video.url, video.title);
+        menuContainer.appendChild(button);
+      });
+    });
 }
 
 function loadEPGs() {
-  const epgs = JSON.parse(localStorage.getItem('epgs')) || [];
-  epgs.forEach(epg => loadEPG(epg.channel, epg.url));
+  fetch('https://raw.githubusercontent.com/wilmorcalero/TV-LIVE-REAL/main/epgs.json')
+    .then(response => response.json())
+    .then(epgs => {
+      epgs.forEach(epg => loadEPG(epg.channel, epg.url));
+    });
 }
 
 function selectVideo(url, title) {
