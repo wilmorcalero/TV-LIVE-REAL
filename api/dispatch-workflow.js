@@ -28,28 +28,33 @@ export default async function handler(req, res) {
             return;
         }
 
-        const response = await fetch(`https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/${workflowFile}/dispatches`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ref: 'main',
-                inputs: {
-                    title: title,
-                    url: url,
-                    channel: channel
-                }
-            })
-        });
+        try {
+            const response = await fetch(`https://api.github.com/repos/wilmorcalero/TV-LIVE-REAL/actions/workflows/${workflowFile}/dispatches`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ref: 'main',
+                    inputs: {
+                        title: title,
+                        url: url,
+                        channel: channel
+                    }
+                })
+            });
 
-        if (response.ok) {
-            res.status(200).json({ message: 'Workflow despachado correctamente' });
-        } else {
-            const errorData = await response.json();
-            res.status(response.status).json({ error: errorData.message });
+            if (response.ok) {
+                res.status(200).json({ message: 'Workflow despachado correctamente' });
+            } else {
+                const errorData = await response.json();
+                res.status(response.status).json({ error: errorData.message });
+            }
+        } catch (error) {
+            console.error('Error al despachar el workflow:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
         }
     } else {
         res.status(405).json({ error: 'Método no permitido' });
