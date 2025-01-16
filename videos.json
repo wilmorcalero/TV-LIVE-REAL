@@ -3,6 +3,10 @@
     {
       "title": "ESPN",
       "url": "https://fl5.moveonjoy.com/ESPN_NEWS/index.m3u8"
+    },
+    {
+      "title": "LAS ESTRELLAS",
+      "url": "http://x.michromatv.com:80/play/EJY6as9sxbGjvSTt1x3HS9XqbbbFqLlAY9F0u4HN5kE/ts"
     }
   ]
 }
